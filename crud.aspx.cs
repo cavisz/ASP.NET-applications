@@ -17,6 +17,25 @@ public partial class Default2 : System.Web.UI.Page
             conexao.Open();
             MySqlCommand cmd = new MySqlCommand(texto, conexao);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+using System;
+public partial class Default2 : System.Web.UI.Page
+{
+    MySqlConnection conexao = new MySqlConnection(ConfigurationManager.ConnectionStrings["YourConnection"].ConnectionString);
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        string texto = "SELECT pessoal_c.PESS_STR_NOME, " +
+      " pessoal_.c.PESS_INT_CODIGO," +
+      " pessoal_c.PESS_STR_EMAIL," +
+      " pessoal_c.PESS_STR_TELEFONE" +
+      " FROM pessoal_c" +
+      " ORDER BY pessoal_c.PESS_STR_NOME ASC";
+
+        try
+        {
+            conexao.Open();
+            MySqlCommand cmd = new MySqlCommand(texto, conexao);
+            MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             adp.Fill(ds);
             GridView1.DataSource = ds;
@@ -101,6 +120,9 @@ public partial class Default2 : System.Web.UI.Page
         {
             conexao.Close();
         }
+
+
+   
 
 
     }
