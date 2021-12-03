@@ -1,5 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default2.aspx.cs" Inherits="Default2" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,6 +14,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class=" container-fluid">
             <div class="row">
                 <div class="col">
@@ -32,11 +35,12 @@
                         </div>
                         <div class="col" style="align-content: space-around">
                             <asp:Button ID="btn_adicionar_pessoa" runat="server" Text="Adicionar Pessoa" Class="btn btn-dark" OnClick="btn_adicionar_pessoa_Click" Style="align-self: stretch" />
+                            <asp:Button ID="btn_voltar_login" runat="server" Text="Voltar" CssClass="btn btn-outline-secondary" OnClick="btn_voltar_login_Click" />
                         </div>
                     </div>
                     <br />
                     <%--container de apresentação--%>
-                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="8" EnableModelValidation="true" OnRowCommand="OnRowCommand" Width="100%">
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="8" EnableModelValidation="true" OnRowCommand="OnRowCommand" Width="100%" ShowHeaderWhenEmpty="true" EmptyDataText="Nenhum registro encontrado" >
                         <%--apresenta as infomações para o usuário em forma de tabela para visualização, é sempre última instância do view e multiview--%>
                         <Columns>
                             <%--define colunas para apresentar a tabela e ordenar corretamente para apresentação--%>
@@ -64,6 +68,7 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+                    <asp:Button ID="btn_grid_vazia" runat="server" Text="Voltar" CssClass="btn btn-outline-secondary" Visible="False" OnClick="btn_grid_vazia_Click" />
                 </asp:View>
                 <asp:View ID="View2" runat="server">
                     <%--segunda vizualização presente na multiview, para edição de informações da tabela--%>
@@ -81,7 +86,7 @@
                     <div class="row">
                         <div class="col">
                             <asp:Label ID="Label_email" runat="server" Text="E-MAIL"></asp:Label>
-                            <asp:TextBox CssClass="form-control" ID="txt_email" runat="server" MaxLength="149" TextMode="Email"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="txt_email" runat="server" MaxLength="30" TextMode="Email"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
                                 runat="server"
                                 ControlToValidate="txt_email"
@@ -92,7 +97,9 @@
                     <div class="row">
                         <div class="col">
                             <asp:Label ID="Label_ramal" runat="server" Text="RAMAL"></asp:Label>
-                            <asp:TextBox CssClass="form-control" ID="txt_ramal" runat="server" MaxLength="149" onkeyup="checkRamal(this, event);"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="txt_ramal" runat="server" MaxLength="20"></asp:TextBox>
+                            <asp:FilteredTextBoxExtender ID="txt_ramal_FilteredTextBoxExtender" runat="server" Enabled="True"  TargetControlID="txt_ramal" ValidChars="0123456789">
+                            </asp:FilteredTextBoxExtender>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
                                 runat="server"
                                 ControlToValidate="txt_ramal"
