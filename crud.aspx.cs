@@ -52,12 +52,11 @@ public partial class Default2 : System.Web.UI.Page
 
     protected void carregar_grid() //função de carregamento de toda gridview
     {
-        string condicao = ""; 
+        string condicao = "";
         if (txt_pesquisa.Text != "") //caso realiza pesquisa no btn sourche ele preenceh a string de condição vazia com o nome pesquisado
         {
             condicao = " WHERE pessoal_c.PESS_STR_NOME LIKE @Nome";
         }
-
 
         string texto = "SELECT depto_c.DEPA_STR_SIGLA," +
                                    " local_c.LOCA_STR_SIGLA," +
@@ -67,7 +66,8 @@ public partial class Default2 : System.Web.UI.Page
                                    " pessoal_c.PESS_STR_NOME" +
                                    " FROM pessoal_c" +
                                    " INNER JOIN depto_c ON depto_c.DEPA_INT_CODIGO = pessoal_c.FK_DEPA_INT_CODIGO" +
-                                   " INNER JOIN local_c ON local_c.LOCA_INT_CODIGO = pessoal_c.FK_LOCA_INT_CODIGO" + condicao;
+                                   " INNER JOIN local_c ON local_c.LOCA_INT_CODIGO = pessoal_c.FK_LOCA_INT_CODIGO" + condicao +
+                                   " ORDER BY PESS_STR_NOME";
 
         try
         {
@@ -79,6 +79,14 @@ public partial class Default2 : System.Web.UI.Page
             adp.Fill(ds);                                                       //preenche a setage com as informações
             GridView1.DataSource = ds;                                          //procura as informações paraa presentar
             GridView1.DataBind();                                               //apresenta as informaçõe no site
+            if (ds.Tables[0].Rows.Count == 0 || txt_pesquisa.Text != "")
+            {
+                btn_grid_vazia.Visible = true;
+
+            }else
+            {
+                btn_grid_vazia.Visible = false;
+            }
             conexao.Close();
         }
         catch (MySqlException)
@@ -88,12 +96,13 @@ public partial class Default2 : System.Web.UI.Page
         {
             conexao.Close();                                                    //close conection
         }
+
     }
 
     protected void carregar_departamentos() //função de carregamento dos departamentos na dropwdownlist
     {
         string texto = "SELECT depto_c.DEPA_STR_SIGLA," +
-                            " depto_c.DEPA_INT_CODIGO" + 
+                            " depto_c.DEPA_INT_CODIGO" +
                             " FROM depto_c";
         try
         {
@@ -116,7 +125,7 @@ public partial class Default2 : System.Web.UI.Page
         }
 
     }
-    protected void carregar_local() 
+    protected void carregar_local()
     {
         string texto = "SELECT local_c.LOCA_INT_CODIGO," +
                                " local_c.LOCA_STR_SIGLA" +
@@ -308,5 +317,18 @@ public partial class Default2 : System.Web.UI.Page
         {
             conexao.Close();
         }
+    }
+
+    protected void btn_grid_vazia_Click(object sender, EventArgs e)
+    {
+        txt_pesquisa.Text = "";
+        MultiView1.ActiveViewIndex = 0;
+        carregar_grid();
+
+    }
+
+    protected void btn_voltar_login_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Default.aspx");
     }
 }
