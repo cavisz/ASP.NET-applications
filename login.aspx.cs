@@ -14,61 +14,45 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Response.IsClientConnected)//relacionar a function login e verificar mysql
+        if (!IsPostBack)
         {
-            Response.Redirect("Default2.aspx", false);
-        }
-        else
-        {
-            Response.End();
-            txt_usuario.Text = "";
+
         }
     }
 
-    protected void btn_submeter_login()
+
+    protected void btn_submeter_Click1(object sender, EventArgs e)
     {
         string sql = "SELECT login_teste.usuario, login_teste.senha" +
-                          " FROM login_teste" +
-                          " WHERE usuario = @usuario and senha = @senha";
-
-        if (txt_usuario.Text != "" && txt_senha.Text != "")
+                                 " FROM login_teste" +
+                                 " WHERE usuario = @usuario and senha = @senha";
+        MessageBox.ShowMessage("Senha ou usuário inválido");
+        try
         {
-            try
-            {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                cmd.Parameters.AddWithValue("@usuario", txt_usuario.Text);
-                cmd.Parameters.AddWithValue("@senha", txt_senha.Text);
-                cmd.ExecuteNonQuery();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@usuario", txt_usuario.Text);
+            cmd.Parameters.AddWithValue("@senha", txt_senha.Text);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+           
 
-                if (rdr.Read())
-                {
-                    txt_usuario.Text = rdr["usuario"].ToString();
-                    txt_senha.Text = rdr["senha"].ToString();
-                }
-                else
-                {
-                    MessageBox.ShowMessage("Senha ou usuário inválido");
-                }
-            }
-            catch
+            if (rdr.Read())
             {
+                Response.Redirect("Default2.aspx");
+
             }
-            finally
+            else
             {
-                conn.Close();
+                txt_usuario.Text = "";
+                MessageBox.ShowMessage("Senha ou usuário inválido");
             }
         }
-        else
+        catch
         {
-            MessageBox.ShowMessage("Usuário ou senha vazio");
         }
-    }
-
-
-    protected void btn_submeter_Click(object sender, EventArgs e)
-    {
-        btn_submeter_login();
+        finally
+        {
+            conn.Close();
+        }
     }
 }
