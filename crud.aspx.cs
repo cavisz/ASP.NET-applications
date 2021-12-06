@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Configuration;
+using System.Web.Security;
 
 public partial class Default2 : System.Web.UI.Page
 {
@@ -83,7 +84,8 @@ public partial class Default2 : System.Web.UI.Page
             {
                 btn_grid_vazia.Visible = true;
 
-            }else
+            }
+            else
             {
                 btn_grid_vazia.Visible = false;
             }
@@ -329,6 +331,8 @@ public partial class Default2 : System.Web.UI.Page
 
     protected void btn_voltar_login_Click(object sender, EventArgs e)
     {
+        FormsAuthentication.SignOut();
         Response.Redirect("Default.aspx");
     }
 }
+
