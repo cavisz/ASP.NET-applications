@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="caa7d4c5-86e5-44a2-bac8-403b5172fedd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#486666">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="a5263253-bc9e-4ab7-9ff4-5bc4ad96fa76">
+		<queryString language="SQL">
+			<![CDATA[SELECT depto_c.DEPA_STR_SIGLA,
+                     local_c.LOCA_STR_SIGLA,
+                     pessoal_c.PESS_INT_CODIGO,
+                     pessoal_c.PESS_STR_EMAIL,
+                     pessoal_c.PESS_STR_RAMAL,
+                     pessoal_c.PESS_STR_NOME
+                     FROM pessoal_c
+                     INNER JOIN depto_c ON depto_c.DEPA_INT_CODIGO = pessoal_c.FK_DEPA_INT_CODIGO
+                     INNER JOIN local_c ON local_c.LOCA_INT_CODIGO = pessoal_c.FK_LOCA_INT_CODIGO
+                     ORDER BY PESS_STR_NOME;]]>
+		</queryString>
+		<field name="DEPA_STR_SIGLA" class="java.lang.String"/>
+		<field name="LOCA_STR_SIGLA" class="java.lang.String"/>
+		<field name="PESS_INT_CODIGO" class="java.lang.Integer"/>
+		<field name="PESS_STR_EMAIL" class="java.lang.String"/>
+		<field name="PESS_STR_RAMAL" class="java.lang.String"/>
+		<field name="PESS_STR_NOME" class="java.lang.String"/>
+		<group name="DEPA_STR_SIGLA">
+			<groupExpression><![CDATA[$F{DEPA_STR_SIGLA}]]></groupExpression>
+		</group>
+		<group name="LOCA_STR_SIGLA">
+			<groupExpression><![CDATA[$F{LOCA_STR_SIGLA}]]></groupExpression>
+		</group>
+		<group name="PESS_STR_NOME">
+			<groupExpression><![CDATA[$F{PESS_STR_NOME}]]></groupExpression>
+		</group>
+		<group name="PESS_STR_EMAIL">
+			<groupExpression><![CDATA[$F{PESS_STR_EMAIL}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT depto_c.DEPA_STR_SIGLA,
+local_c.LOCA_STR_SIGLA,
+pessoal_c.PESS_INT_CODIGO,
+pessoal_c.PESS_STR_EMAIL,
+pessoal_c.PESS_STR_RAMAL,
+pessoal_c.PESS_STR_NOME
+FROM pessoal_c
+INNER JOIN depto_c ON depto_c.DEPA_INT_CODIGO = pessoal_c.FK_DEPA_INT_CODIGO
+INNER JOIN local_c ON local_c.LOCA_INT_CODIGO = pessoal_c.FK_LOCA_INT_CODIGO
+ORDER BY PESS_STR_NOME;]]>
+	</queryString>
+	<field name="DEPA_STR_SIGLA" class="java.lang.String"/>
+	<field name="LOCA_STR_SIGLA" class="java.lang.String"/>
+	<field name="PESS_INT_CODIGO" class="java.lang.Integer"/>
+	<field name="PESS_STR_EMAIL" class="java.lang.String"/>
+	<field name="PESS_STR_RAMAL" class="java.lang.String"/>
+	<field name="PESS_STR_NOME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ada20b60-8fc2-4ff8-9390-5aeccb975bcf" x="221" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Lista de Ramais]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="050cad64-9fa8-42ca-b5bb-1b1ae5f60cd1" x="0" y="0" width="106" height="20"/>
+				<textElement textAlignment="Justified">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e8ae1cf-c4ce-4604-a927-6cd2fbbeb7a4" x="134" y="3" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2328a716-9ee7-42fe-a021-0c4e4df0b0c4" x="258" y="3" width="90" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[RAMAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bceb5e17-36d2-4bec-bd07-c63d7f5c03a9" x="348" y="2" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DEPARTAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6aca4578-6e4d-42fd-ab51-0ae87af4dd73" x="455" y="2" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[LOCAL]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="6f48cd3e-fb69-4b54-a35e-5813e05c745a" x="0" y="22" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="70d2885f-c091-4299-8d03-060404824919" x="0" y="0" width="106" height="15"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{PESS_STR_NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0e4210a3-8a84-489a-84c6-559d7767f36e" x="137" y="1" width="97" height="15"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{PESS_STR_EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad5bd70a-a8b6-4762-9bf5-8e86f680d0a2" x="258" y="1" width="90" height="16"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{PESS_STR_RAMAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="17b3a48b-fa6c-4349-87c4-9bfc9eb0771f" x="348" y="0" width="100" height="15"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{DEPA_STR_SIGLA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="25ef6e0b-72ba-449f-afd3-47327082722b" x="455" y="1" width="100" height="14"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{LOCA_STR_SIGLA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="1a3d6618-cdf2-4ffd-ae02-c3a75798756d" x="0" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8297b98b-20fe-40ca-9d3c-96a33668aa48" x="448" y="10" width="71" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="cae8b2a6-c5bd-4536-9c25-98b85efc8a2c" x="519" y="10" width="23" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="2df95cfd-2683-4d7e-be28-6beb5a89bd04" x="0" y="0" width="555" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch"/>
+	</summary>
+</jasperReport>
