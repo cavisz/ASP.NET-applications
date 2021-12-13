@@ -23,7 +23,7 @@
 
 
             if (pTipo != "") {
-                pCondicao += "  WHERE pessoal_c.PESS_STR_NOME = " + pTipo;
+                pCondicao += "  WHERE pessoal_c.PESS_STR_NOME LIKE '%" + pTipo+"%'";
             }
 
             String query = "SELECT depto_c.DEPA_STR_SIGLA," +
@@ -61,7 +61,7 @@
                 //parameters.put("pNivelDescricao", pNivelDescricao);
 
                 // lendo arquivo jasper
-                File reportFile = new File(application.getRealPath("/web\relatorios/report1.jasper"));
+                File reportFile = new File(application.getRealPath("/WEB-INF/relatorios/report1.jasper"));
 
                 byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, jrRS);
                 response.setContentType("application/pdf");
